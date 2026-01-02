@@ -10,7 +10,27 @@ const demos: Demo[] = [
 ];
 
 injectBaseStyles();
+document.title = "Three.js Studies (TypeScript)";
+
 const ui = createLayout();
+const githubLink = document.getElementById("link-github") as HTMLAnchorElement | null;
+const demoLink = document.getElementById("link-demo") as HTMLAnchorElement | null;
+
+// ★ここは自分のGitHubリポジトリURLに置き換えてね
+if (githubLink) githubLink.href = "https://github.com/honokageri/threejs-studies";
+
+function updateLinks(demoId: string) {
+  // 今のページURLに #demoId を付ける（共有しやすい）
+  const url = new URL(window.location.href);
+  url.hash = demoId;
+  if (demoLink) demoLink.href = url.toString();
+}
+
+function setHash(demoId: string) {
+  // 履歴を増やしたくないなら replaceState（おすすめ）
+  history.replaceState(null, "", `#${demoId}`);
+}
+
 
 const metaTitle = document.getElementById("meta-title")!;
 const metaDesc  = document.getElementById("meta-desc")!;
@@ -23,8 +43,20 @@ function setMeta(demo: Demo) {
   metaDesc.textContent = demo.description ?? "";
 }
 
+function getInitialDemo(): Demo {
+  const hash = window.location.hash.replace("#", "").trim();
+  if (!hash) return demos[0];
+
+  const found = demos.find(d => d.id === hash);
+  return found ?? demos[0];
+}
+
+window.addEventListener("hashchange", () => {
+  const next = getInitialDemo();
+  if (next.id !== activeId) runDemo(next);
+});
+
 function runDemo(demo: Demo) {
-  // 前のデモを掃除
   if (cleanup) cleanup();
   cleanup = null;
 
@@ -33,8 +65,14 @@ function runDemo(demo: Demo) {
 
   cleanup = demo.start({ container: ui.stage });
   activeId = demo.id;
-  renderSidebar(); // active表示更新
+
+  setHash(demo.id);       // ★追加：アドレスバー更新
+  updateLinks(demo.id);   // ★既存：共有リンク更新
+
+  renderSidebar();
 }
+
+
 
 function renderSidebar() {
   ui.list.innerHTML = "";
@@ -55,4 +93,4 @@ function renderSidebar() {
 
 // 初期表示
 renderSidebar();
-runDemo(demos[0]);
+runDemo(getInitialDemo());

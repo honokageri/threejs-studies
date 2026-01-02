@@ -85,6 +85,48 @@ export function injectBaseStyles() {
     }
 
     canvas { display: block; }
+
+    #sidebar-footer { display: grid; gap: 12px; }
+
+    .sb-section {
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(2, 6, 23, 0.35);
+        border-radius: 12px;
+        padding: 10px;
+    }
+
+    .sb-heading {
+        font-size: 11px;
+        color: #93c5fd;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        margin-bottom: 6px;
+    }
+
+    .sb-text {
+        font-size: 11px;
+        color: #94a3b8;
+        line-height: 1.45;
+    }
+
+    .sb-links { display: grid; gap: 6px; }
+
+    .sb-link {
+        display: inline-block;
+        font-size: 11px;
+        color: #e5e7eb;
+        text-decoration: none;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(30, 41, 59, 0.35);
+        padding: 6px 8px;
+        border-radius: 10px;
+    }
+
+    .sb-link:hover {
+        background: rgba(30, 41, 59, 0.55);
+        border-color: rgba(59,130,246,0.6);
+    }
+
   `;
   document.head.appendChild(style);
 }

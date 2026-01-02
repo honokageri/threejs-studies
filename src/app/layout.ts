@@ -16,11 +16,34 @@ export function createLayout() {
   const list = document.createElement("nav");
   list.id = "demo-list";
 
-  const footer = document.createElement("div");
-  footer.id = "sidebar-footer";
-  footer.innerHTML = `
-    <div class="hint">左のメニューからデモを切り替えられます。</div>
-  `;
+    const footer = document.createElement("div");
+    footer.id = "sidebar-footer";
+    footer.innerHTML = `
+    <section class="sb-section">
+        <div class="sb-heading">About</div>
+        <div class="sb-text">
+        Three.js を TypeScript で学ぶためのデモ集です。<br/>
+        「なぜそう見えるか」を小さく分解して検証しています。
+        </div>
+    </section>
+
+    <section class="sb-section">
+        <div class="sb-heading">Links</div>
+        <div class="sb-links">
+        <a id="link-github" class="sb-link" href="#" target="_blank" rel="noreferrer">GitHub</a>
+        <a id="link-demo" class="sb-link" href="#" target="_blank" rel="noreferrer">Open current demo</a>
+        </div>
+    </section>
+
+    <section class="sb-section">
+        <div class="sb-heading">Controls</div>
+        <div class="sb-text">
+        Demoごとに操作が変わります。<br/>
+        例：ドラッグ回転 / スクロールズーム（今後追加）
+        </div>
+    </section>
+    `;
+
 
   sidebar.append(header, list, footer);
 
